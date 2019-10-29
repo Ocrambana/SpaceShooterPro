@@ -70,4 +70,15 @@ public class Player : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void OnDestroy()
+    {
+        SpawnManager sm = FindObjectOfType<SpawnManager>();
+        sm?.OnPlayerDeath();
+
+        if(sm == null)
+        {
+            Debug.LogError("Spawn Manager not found");
+        }
+    }
 }
