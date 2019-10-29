@@ -18,20 +18,14 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(SpawnEnemy());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private IEnumerator SpawnEnemy()
     {
         while(!_stopSpawning)
         {
-            yield return new WaitForSeconds(_timeBetweenSpawns);
-
             Vector3 spawnPosition = new Vector3(Random.Range(-9, 9), 7f, 0f);
             Instantiate(_enemyprefab, spawnPosition, Quaternion.identity,_enemyContainer);
+
+            yield return new WaitForSeconds(_timeBetweenSpawns);
         }
     }
 
