@@ -4,18 +4,29 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [Header("Speed and lives")]
     [SerializeField]
     private float _speed = 3.5f;
     [SerializeField]
     private int _lives = 3;
+
+    [Header("Shooting settings")]
     [SerializeField]
     private GameObject _laserPrefab;
     [SerializeField]
-    private Vector3 _shootOffset = Vector3.zero;
+    private Vector3 _projectileOffset = Vector3.zero;
     [SerializeField]
     private float _fireRate = 0.5f;
 
-    private float _canFire = -1f;
+    [Header("Triple Laser")]
+    [SerializeField]
+    private GameObject _tripleLaserPrefab;
+    [SerializeField]
+    private float _tripleLaserDuration = 5f;
+
+    private float _canFire = -1f; 
+    [SerializeField]
+    private bool isTripleLaserActive = false;
 
     void Start()
     {
@@ -26,7 +37,11 @@ public class Player : MonoBehaviour
     {
         CalculateMovement();
         ClampPositionInsideBorder();
-        FireLaser();
+
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
+        {
+            FireLaser();
+        }
     }
 
     private void CalculateMovement()
@@ -52,11 +67,15 @@ public class Player : MonoBehaviour
 
     private void FireLaser()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
-        {
-            _canFire = Time.time + _fireRate;
+        _canFire = Time.time + _fireRate;
+        Vector3 spawnPostion = transform.position + _projectileOffset;
 
-            Vector3 spawnPostion = transform.position + _shootOffset;
+        if(isTripleLaserActive)
+        {
+            Instantiate(_tripleLaserPrefab, spawnPostion, Quaternion.identity);
+        }
+        else
+        {
             Instantiate(_laserPrefab, spawnPostion, Quaternion.identity);
         }
     }
@@ -80,5 +99,19 @@ public class Player : MonoBehaviour
         {
             Debug.LogError("Spawn Manager not found");
         }
+    }
+
+    public void OnTripleLaserPickup()
+    {
+        isTripleLaserActive = true;
+
+        
+    }
+
+    private IEnumerator StopTripleFire()
+    {
+        yield return new WaitForSeconds(_tripleLaserDuration);
+
+        isTripleLaserActive = false;
     }
 }

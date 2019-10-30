@@ -30,16 +30,19 @@ public class Enemy : MonoBehaviour
         transform.position = respawnPos;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        if(other.tag == "Player")
+        if(other.gameObject.tag == "Player")
         {
             Destroy(gameObject);
 
-            other.TryGetComponent<Player>(out Player p);
+            Player p = other.gameObject.GetComponent<Player>();
             p?.Damage();
         }
+    }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
         if(other.tag == "Laser")
         {
             Destroy(other.gameObject);
