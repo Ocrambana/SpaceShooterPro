@@ -25,7 +25,6 @@ public class Player : MonoBehaviour
     private float _tripleLaserDuration = 5f;
 
     private float _canFire = -1f; 
-    [SerializeField]
     private bool isTripleLaserActive = false;
 
     void Start()
@@ -105,10 +104,10 @@ public class Player : MonoBehaviour
     {
         isTripleLaserActive = true;
 
-        
+        StartCoroutine(TripleShotDuration());
     }
 
-    private IEnumerator StopTripleFire()
+    private IEnumerator TripleShotDuration()
     {
         yield return new WaitForSeconds(_tripleLaserDuration);
 
