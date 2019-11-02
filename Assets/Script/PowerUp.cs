@@ -15,6 +15,8 @@ public class PowerUp : MonoBehaviour
         float yComponent = Random.Range(-5f,-1f);
         movementDirection = new Vector3(xComponent,yComponent,0f);
         movementDirection.Normalize();
+
+        Destroy(gameObject, 6f);
     }
 
     void Update()

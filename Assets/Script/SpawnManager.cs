@@ -4,18 +4,26 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    [Header("Enemies Spawing Settings")]
     [SerializeField]
-    private float _timeBetweenSpawns = 5f;
+    private float _timeBetweenEnemy = 5f;
     [SerializeField]
-    private GameObject _enemyprefab;
+    private GameObject _enemyPrefab;
     [SerializeField]
     private Transform _enemyContainer;
+
+    [Header("Powerups Spawing Settings")]
+    [SerializeField]
+    private float _timeBetweenPowerups = 7f;
+    [SerializeField]
+    private GameObject _powerupPrefab;
 
     private bool _stopSpawning = false;
 
     void Start()
     {
         StartCoroutine(SpawnEnemy());
+        StartCoroutine(SpawnPowerUp());
     }
 
     private IEnumerator SpawnEnemy()
@@ -23,9 +31,20 @@ public class SpawnManager : MonoBehaviour
         while(!_stopSpawning)
         {
             Vector3 spawnPosition = new Vector3(Random.Range(-9, 9), 7f, 0f);
-            Instantiate(_enemyprefab, spawnPosition, Quaternion.identity,_enemyContainer);
+            Instantiate(_enemyPrefab, spawnPosition, Quaternion.identity,_enemyContainer);
 
-            yield return new WaitForSeconds(_timeBetweenSpawns);
+            yield return new WaitForSeconds(_timeBetweenEnemy);
+        }
+    }
+
+    private IEnumerator SpawnPowerUp()
+    {
+        while(!_stopSpawning)
+        {
+            Vector3 spawnPosition = new Vector3(Random.Range(-8, 8), 7f, 0f);
+            Instantiate(_powerupPrefab, spawnPosition, Quaternion.identity);
+
+            yield return new WaitForSeconds(_timeBetweenPowerups);
         }
     }
 

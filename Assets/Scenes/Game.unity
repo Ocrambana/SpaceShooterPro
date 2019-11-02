@@ -511,76 +511,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ff9d2d72dfd8dd4782ce4a91c7f5da3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeBetweenSpawns: 5
-  _enemyprefab: {fileID: 4647810221621784737, guid: a4f69521f2a4cb64e9a0f7999c46a7e2,
+  _timeBetweenEnemy: 5
+  _enemyPrefab: {fileID: 4647810221621784737, guid: a4f69521f2a4cb64e9a0f7999c46a7e2,
     type: 3}
   _enemyContainer: {fileID: 1714754746}
---- !u!1001 &6767711432248009531
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 6767711431894638706, guid: 69ed7e315030a444c9a9d4f6fb987937,
-        type: 3}
-      propertyPath: m_Name
-      value: TripleShot PowerUp
-      objectReference: {fileID: 0}
-    - target: {fileID: 6767711431894638711, guid: 69ed7e315030a444c9a9d4f6fb987937,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 8.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 6767711431894638711, guid: 69ed7e315030a444c9a9d4f6fb987937,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 6.14
-      objectReference: {fileID: 0}
-    - target: {fileID: 6767711431894638711, guid: 69ed7e315030a444c9a9d4f6fb987937,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6767711431894638711, guid: 69ed7e315030a444c9a9d4f6fb987937,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6767711431894638711, guid: 69ed7e315030a444c9a9d4f6fb987937,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6767711431894638711, guid: 69ed7e315030a444c9a9d4f6fb987937,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6767711431894638711, guid: 69ed7e315030a444c9a9d4f6fb987937,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6767711431894638711, guid: 69ed7e315030a444c9a9d4f6fb987937,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6767711431894638711, guid: 69ed7e315030a444c9a9d4f6fb987937,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6767711431894638711, guid: 69ed7e315030a444c9a9d4f6fb987937,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6767711431894638711, guid: 69ed7e315030a444c9a9d4f6fb987937,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 69ed7e315030a444c9a9d4f6fb987937, type: 3}
+  _timeBetweenPowerups: 15
+  _powerupPrefab: {fileID: 6767711431894638706, guid: 69ed7e315030a444c9a9d4f6fb987937,
+    type: 3}
