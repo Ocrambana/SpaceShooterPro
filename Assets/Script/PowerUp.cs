@@ -82,7 +82,6 @@ public class PowerUp : MonoBehaviour
             default:
                 Debug.LogError("Powerup type unknown");
                 break;
-
         }
     }
 }

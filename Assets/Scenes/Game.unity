@@ -517,5 +517,6 @@ MonoBehaviour:
     type: 3}
   _enemyContainer: {fileID: 1714754746}
   _timeBetweenPowerups: 15
-  _powerupPrefab: {fileID: 6767711431894638706, guid: 69ed7e315030a444c9a9d4f6fb987937,
-    type: 3}
+  _powerupPrefabs:
+  - {fileID: 6767711431894638706, guid: 69ed7e315030a444c9a9d4f6fb987937, type: 3}
+  - {fileID: 1592992843803095491, guid: eeb846f99a058fd46ab44af5b29d22e0, type: 3}

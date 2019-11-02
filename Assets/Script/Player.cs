@@ -26,9 +26,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _speedMultiplier = 2f;
     
+    private float _actualSpeed;
     private float _canFire = -1f; 
     private bool isTripleLaserActive = false;
-    private float _actualSpeed;
 
     void Start()
     {

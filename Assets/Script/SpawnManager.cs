@@ -16,7 +16,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private float _timeBetweenPowerups = 7f;
     [SerializeField]
-    private GameObject _powerupPrefab;
+    private List<GameObject> _powerupPrefabs;
 
     private bool _stopSpawning = false;
 
@@ -39,10 +39,16 @@ public class SpawnManager : MonoBehaviour
 
     private IEnumerator SpawnPowerUp()
     {
+        GameObject powerupPrefab;
+        int randomPoweup;
+
         while(!_stopSpawning)
         {
+            randomPoweup = Random.Range(0, _powerupPrefabs.Count);
+            powerupPrefab = _powerupPrefabs[randomPoweup];
+
             Vector3 spawnPosition = new Vector3(Random.Range(-8, 8), 7f, 0f);
-            Instantiate(_powerupPrefab, spawnPosition, Quaternion.identity);
+            Instantiate(powerupPrefab, spawnPosition, Quaternion.identity);
 
             yield return new WaitForSeconds(_timeBetweenPowerups);
         }
