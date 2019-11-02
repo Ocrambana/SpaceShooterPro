@@ -4,8 +4,17 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
+    private enum PowerupType
+    {
+        TripleShot,
+        Speed,
+        Shield
+    };
+
     [SerializeField]
     private float _speed = 3f;
+    [SerializeField]
+    private PowerupType _powerupType;
 
     private Vector3 movementDirection;
 
@@ -26,7 +35,7 @@ public class PowerUp : MonoBehaviour
 
     void Update()
     {
-        CalculateMovement();
+        Move();
 
         if (transform.position.y < -5f)
         {
@@ -34,7 +43,7 @@ public class PowerUp : MonoBehaviour
         }
     }
 
-    private void CalculateMovement()
+    private void Move()
     {
         Vector3 movement = movementDirection * _speed * Time.deltaTime;
         float newX = transform.position.x + movement.x;
@@ -50,12 +59,30 @@ public class PowerUp : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Player")
+        if (collision.tag == "Player")
         {
             collision.TryGetComponent<Player>(out Player p);
-            p?.OnTripleLaserPickup();
+
+            ApplyPowerup(p);
 
             Destroy(gameObject);
+        }
+    }
+
+    private void ApplyPowerup(Player player)
+    {
+        switch(_powerupType)
+        {
+            case PowerupType.TripleShot:
+                player?.OnTripleLaserPickup();
+                break;
+            case PowerupType.Speed:
+                player.OnSpeedPickup();
+                break;
+            default:
+                Debug.LogError("Powerup type unknown");
+                break;
+
         }
     }
 }

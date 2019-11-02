@@ -323,9 +323,10 @@ MonoBehaviour:
     type: 3}
   _projectileOffset: {x: 0, y: 0.8, z: 0}
   _fireRate: 0.2
+  _powerupDuration: 5
   _tripleLaserPrefab: {fileID: 7594418140799513228, guid: ffd56a303a4c8ce4a809c6cf8245c2c6,
     type: 3}
-  _tripleLaserDuration: 5
+  _speedMultiplier: 2
 --- !u!212 &1595826001
 SpriteRenderer:
   m_ObjectHideFlags: 0

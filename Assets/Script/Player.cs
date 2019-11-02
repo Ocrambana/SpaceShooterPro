@@ -18,18 +18,22 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _fireRate = 0.5f;
 
-    [Header("Triple Laser")]
+    [Header("Powerups")]
+    [SerializeField]
+    private float _powerupDuration = 5f;
     [SerializeField]
     private GameObject _tripleLaserPrefab;
     [SerializeField]
-    private float _tripleLaserDuration = 5f;
-
+    private float _speedMultiplier = 2f;
+    
     private float _canFire = -1f; 
     private bool isTripleLaserActive = false;
+    private float _actualSpeed;
 
     void Start()
     {
-        transform.position = Vector3.zero;   
+        transform.position = Vector3.zero;
+        _actualSpeed = _speed;
     }
     
     void Update()
@@ -50,7 +54,7 @@ public class Player : MonoBehaviour
 
         Vector3 movement = new Vector3(horizontalInput, verticalInput, 0f);
 
-        transform.Translate(movement * _speed * Time.deltaTime);
+        transform.Translate(movement * _actualSpeed * Time.deltaTime);
     }
 
     private void ClampPositionInsideBorder()
@@ -109,8 +113,22 @@ public class Player : MonoBehaviour
 
     private IEnumerator TripleShotDuration()
     {
-        yield return new WaitForSeconds(_tripleLaserDuration);
+        yield return new WaitForSeconds(_powerupDuration);
 
         isTripleLaserActive = false;
+    }
+
+    public void OnSpeedPickup()
+    {
+        _actualSpeed = _speed * _speedMultiplier;
+
+        StartCoroutine(SpeedPowerupDuration());
+    }
+
+    private IEnumerator SpeedPowerupDuration()
+    {
+        yield return new WaitForSeconds(_powerupDuration);
+
+        _actualSpeed = _speed;
     }
 }
