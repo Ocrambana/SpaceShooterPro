@@ -27,16 +27,19 @@ public class Player : MonoBehaviour
     private float _speedMultiplier = 2f;
     [SerializeField]
     private SpriteRenderer _shieldRenderer;
-    
+
     private float _actualSpeed;
     private float _canFire = -1f; 
     private bool _isTripleLaserActive = false;
     private bool _isShieldActive = false;
+    private UIManager _uiManager;
+    private int _score = 0;
 
     void Start()
     {
         transform.position = Vector3.zero;
         _actualSpeed = _speed;
+        _uiManager = FindObjectOfType<UIManager>();
     }
     
     void Update()
@@ -146,5 +149,14 @@ public class Player : MonoBehaviour
     {
         _isShieldActive = true;
         _shieldRenderer.enabled = true;
+    }
+
+    public void AddToScore(int val)
+    {
+        if (val < 0)
+            return;
+
+        _score += val;
+        _uiManager?.UpdateScore(_score);
     }
 }
