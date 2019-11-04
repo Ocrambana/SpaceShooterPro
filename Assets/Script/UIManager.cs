@@ -12,11 +12,16 @@ public class UIManager : MonoBehaviour
     private Image _livesImage;
     [SerializeField]
     private List<Sprite> _liveSprites;
+    [SerializeField]
+    private TextMeshProUGUI _gameOverLabel;
+    [SerializeField]
+    private float _flickerSpeed = 0.2f;
 
     void Start()
     {
-        UpdateLives(_liveSprites.Count);
+        UpdateLives(_liveSprites.Count - 1);
         UpdateScore(0);
+        _gameOverLabel?.gameObject.SetActive(false);
     }
 
     public void UpdateScore(int val)
@@ -26,6 +31,24 @@ public class UIManager : MonoBehaviour
 
     public void UpdateLives(int currentLives)
     {
+        if (currentLives >= _liveSprites.Count)
+            return;
+
         _livesImage.sprite = _liveSprites[currentLives];
+    }
+
+    public void GameOver()
+    {
+        _gameOverLabel?.gameObject.SetActive(true);
+        StartCoroutine(FlickerGameOverText());
+    }
+
+    private IEnumerator FlickerGameOverText()
+    {
+        while(true)
+        {
+            _gameOverLabel.enabled = !_gameOverLabel.enabled;
+            yield return new WaitForSeconds(_flickerSpeed);
+        }
     }
 }

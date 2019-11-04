@@ -103,6 +103,7 @@ public class Player : MonoBehaviour
 
         if(_lives < 1)
         {
+            _uiManager.GameOver();
             Destroy(gameObject);
         }
     }
