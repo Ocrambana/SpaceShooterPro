@@ -17,11 +17,14 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private float _flickerSpeed = 0.2f;
 
+    private GameManager _gameManager;
+
     void Start()
     {
         UpdateLives(_liveSprites.Count - 1);
         UpdateScore(0);
         _gameOverLabel?.gameObject.SetActive(false);
+        _gameManager = FindObjectOfType<GameManager>();
     }
 
     public void UpdateScore(int val)
@@ -41,6 +44,7 @@ public class UIManager : MonoBehaviour
     {
         _gameOverLabel?.gameObject.SetActive(true);
         StartCoroutine(FlickerGameOverText());
+        _gameManager.GameOver();
     }
 
     private IEnumerator FlickerGameOverText()
