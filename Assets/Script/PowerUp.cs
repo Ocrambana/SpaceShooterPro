@@ -79,6 +79,9 @@ public class PowerUp : MonoBehaviour
             case PowerupType.Speed:
                 player.OnSpeedPickup();
                 break;
+            case PowerupType.Shield:
+                player?.OnShieldPickup();
+                break;
             default:
                 Debug.LogError("Powerup type unknown");
                 break;

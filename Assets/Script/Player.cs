@@ -25,10 +25,13 @@ public class Player : MonoBehaviour
     private GameObject _tripleLaserPrefab;
     [SerializeField]
     private float _speedMultiplier = 2f;
+    [SerializeField]
+    private SpriteRenderer _shieldRenderer;
     
     private float _actualSpeed;
     private float _canFire = -1f; 
-    private bool isTripleLaserActive = false;
+    private bool _isTripleLaserActive = false;
+    private bool _isShieldActive = false;
 
     void Start()
     {
@@ -73,7 +76,7 @@ public class Player : MonoBehaviour
         _canFire = Time.time + _fireRate;
         Vector3 spawnPostion = transform.position + _projectileOffset;
 
-        if(isTripleLaserActive)
+        if(_isTripleLaserActive)
         {
             Instantiate(_tripleLaserPrefab, spawnPostion, Quaternion.identity);
         }
@@ -85,6 +88,13 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
+        if(_isShieldActive)
+        {
+            _isShieldActive = false;
+            _shieldRenderer.enabled = false;
+            return;
+        }
+
         _lives--;
 
         if(_lives < 1)
@@ -106,7 +116,7 @@ public class Player : MonoBehaviour
 
     public void OnTripleLaserPickup()
     {
-        isTripleLaserActive = true;
+        _isTripleLaserActive = true;
 
         StartCoroutine(TripleShotDuration());
     }
@@ -115,7 +125,7 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(_powerupDuration);
 
-        isTripleLaserActive = false;
+        _isTripleLaserActive = false;
     }
 
     public void OnSpeedPickup()
@@ -130,5 +140,11 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(_powerupDuration);
 
         _actualSpeed = _speed;
+    }
+
+    public void OnShieldPickup()
+    {
+        _isShieldActive = true;
+        _shieldRenderer.enabled = true;
     }
 }
