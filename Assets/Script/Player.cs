@@ -112,11 +112,6 @@ public class Player : MonoBehaviour
     {
         SpawnManager sm = FindObjectOfType<SpawnManager>();
         sm?.OnPlayerDeath();
-
-        if(sm == null)
-        {
-            Debug.LogError("Spawn Manager not found");
-        }
     }
 
     public void OnTripleLaserPickup()
