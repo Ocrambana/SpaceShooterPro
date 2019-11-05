@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Collider2D))]
 public class Enemy : MonoBehaviour
 {
     [SerializeField]
@@ -10,10 +11,24 @@ public class Enemy : MonoBehaviour
     private int _scoreValue = 10;
 
     private Player _player;
+    private Animator _animator;
+    private Collider2D _collider;
 
     private void Start()
     {
+        _animator = GetComponent<Animator>();
+        _collider = GetComponent<Collider2D>();
         _player = FindObjectOfType<Player>();
+
+        if(_player == null)
+        {
+            Debug.LogError("Enemy._player is NULL");
+        }
+
+        if(_animator == null)
+        {
+            Debug.LogError("Enemy._animator is NULL");
+        }
     }
 
     void Update()
@@ -43,9 +58,8 @@ public class Enemy : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            Destroy(gameObject);
-
             _player?.Damage();
+            DeathSequence();
         }
     }
 
@@ -55,7 +69,16 @@ public class Enemy : MonoBehaviour
         {
             Destroy(other.gameObject);
             _player?.AddToScore(_scoreValue);
-            Destroy(gameObject);
+            DeathSequence();
         }
+    }
+
+    private void DeathSequence()
+    {
+        _collider.enabled = false;
+        _animator.SetTrigger("OnEnemyDeath");
+        _speed = 0f;
+
+        Destroy(gameObject,2.7f);
     }
 }

@@ -28,6 +28,7 @@ public class SpawnManager : MonoBehaviour
 
     private IEnumerator SpawnEnemy()
     {
+        yield return new WaitForSeconds(3f);
         while(!_stopSpawning)
         {
             Vector3 spawnPosition = new Vector3(Random.Range(-9, 9), 7f, 0f);
@@ -39,6 +40,7 @@ public class SpawnManager : MonoBehaviour
 
     private IEnumerator SpawnPowerUp()
     {
+        yield return new WaitForSeconds(3f);
         GameObject powerupPrefab;
         int randomPoweup;
 
