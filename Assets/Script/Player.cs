@@ -120,14 +120,14 @@ public class Player : MonoBehaviour
     private void DecreaseLives()
     {
         _lives--;
-        _uiManager.UpdateLives(_lives);
+        _uiManager?.UpdateLives(_lives);
     }
 
     private void DeathCheck()
     {
         if (_lives < 1)
         {
-            _uiManager.GameOver();
+            _uiManager?.GameOver();
             Destroy(gameObject);
         }
     }
