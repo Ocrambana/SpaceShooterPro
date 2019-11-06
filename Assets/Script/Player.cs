@@ -9,6 +9,10 @@ public class Player : MonoBehaviour
     private float _speed = 3.5f;
     [SerializeField]
     private int _lives = 3;
+    [SerializeField]
+    private GameObject _rightDamage;
+    [SerializeField]
+    private GameObject _leftDamage;
 
     [Header("Shooting settings")]
     [SerializeField]
@@ -37,11 +41,16 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        transform.position = Vector3.zero;
-        _actualSpeed = _speed;
+        SetInitialPositionAndSpeed();
         _uiManager = FindObjectOfType<UIManager>();
     }
-    
+
+    private void SetInitialPositionAndSpeed()
+    {
+        transform.position = Vector3.zero;
+        _actualSpeed = _speed;
+    }
+
     void Update()
     {
         CalculateMovement();
@@ -91,20 +100,47 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
-        if(_isShieldActive)
+        if (_isShieldActive)
         {
-            _isShieldActive = false;
-            _shieldRenderer.enabled = false;
+            DeactivateShield();
             return;
         }
 
+        DecreaseLives();
+        DeathCheck();
+        ShowDamage();
+    }
+
+    private void DeactivateShield()
+    {
+        _isShieldActive = false;
+        _shieldRenderer.enabled = false;
+    }
+
+    private void DecreaseLives()
+    {
         _lives--;
         _uiManager.UpdateLives(_lives);
+    }
 
-        if(_lives < 1)
+    private void DeathCheck()
+    {
+        if (_lives < 1)
         {
             _uiManager.GameOver();
             Destroy(gameObject);
+        }
+    }
+
+    private void ShowDamage()
+    {
+        if (_rightDamage.activeSelf)
+        {
+            _leftDamage.SetActive(true);
+        }
+        else
+        {
+            _rightDamage.SetActive(true);
         }
     }
 
