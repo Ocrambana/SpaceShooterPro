@@ -15,6 +15,8 @@ public class PowerUp : MonoBehaviour
     private float _speed = 3f;
     [SerializeField]
     private PowerupType _powerupType;
+    [SerializeField]
+    private float _lifeTime = 10f;
 
     private Vector3 movementDirection;
 
@@ -22,7 +24,7 @@ public class PowerUp : MonoBehaviour
     {
         CalculateMovementDirection();
 
-        Destroy(gameObject, 6f);
+        Destroy(gameObject, _lifeTime);
     }
 
     private void CalculateMovementDirection()

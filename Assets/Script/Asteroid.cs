@@ -10,6 +10,7 @@ public class Asteroid : MonoBehaviour
     private GameObject _explosion;
 
     private SpawnManager _spawnManager;
+    private Collider2D _collider;
 
     private void Start()
     {
@@ -19,6 +20,7 @@ public class Asteroid : MonoBehaviour
         {
             Debug.LogError("Asteroid: SpawnManager is null");
         }
+        _collider = GetComponent<Collider2D>();
     }
 
     void Update()
@@ -30,6 +32,7 @@ public class Asteroid : MonoBehaviour
     {
         if(collision.tag == "Laser")
         {
+            _collider.enabled = false;
             Destroy(collision.gameObject);
             GameObject explosion = Instantiate(_explosion, transform.position, Quaternion.identity);
             Destroy(explosion, 3f);
