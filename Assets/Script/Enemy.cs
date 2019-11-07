@@ -9,16 +9,20 @@ public class Enemy : MonoBehaviour
     private float _speed = 4f;
     [SerializeField]
     private int _scoreValue = 10;
+    [SerializeField]
+    private AudioClip _explosionSound;
 
     private Player _player;
     private Animator _animator;
     private Collider2D _collider;
+    private AudioSource _audioSource;
 
     private void Start()
     {
         _animator = GetComponent<Animator>();
         _collider = GetComponent<Collider2D>();
         _player = FindObjectOfType<Player>();
+        _audioSource = GetComponent<AudioSource>();
 
         if(_player == null)
         {
@@ -76,7 +80,9 @@ public class Enemy : MonoBehaviour
     private void DeathSequence()
     {
         _collider.enabled = false;
+        _audioSource.clip = _explosionSound;
         _animator.SetTrigger("OnEnemyDeath");
+        _audioSource.Play();
         _speed = 0f;
 
         Destroy(gameObject,2.7f);

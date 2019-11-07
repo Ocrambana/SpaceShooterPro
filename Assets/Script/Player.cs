@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     private GameObject _rightDamage;
     [SerializeField]
     private GameObject _leftDamage;
+    [SerializeField]
+    private AudioClip _deathSound;
 
     [Header("Shooting settings")]
     [SerializeField]
@@ -140,6 +142,10 @@ public class Player : MonoBehaviour
         if (_lives < 1)
         {
             _uiManager?.GameOver();
+
+            _audioSource.clip = _deathSound;
+            _audioSource.Play();
+
             Destroy(gameObject);
         }
     }
