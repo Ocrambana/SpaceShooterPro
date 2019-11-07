@@ -9,10 +9,17 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if(_isGameOver && Input.GetKeyDown(KeyCode.R))
+        if(_isGameOver)
         {
-            Scene actual = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(actual.buildIndex);
+            if(Input.GetKeyDown(KeyCode.R))
+            {
+                Scene actual = SceneManager.GetActiveScene();
+                SceneManager.LoadScene(actual.buildIndex);
+            }
+            else if(Input.GetKeyDown(KeyCode.Q))
+            {
+                Application.Quit();
+            }
         }
     }
 
