@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
     private Vector3 _projectileOffset = Vector3.zero;
     [SerializeField]
     private float _fireRate = 0.5f;
+    [SerializeField]
+    private AudioClip _shootingSound;
 
     [Header("Powerups")]
     [SerializeField]
@@ -38,11 +40,13 @@ public class Player : MonoBehaviour
     private bool _isShieldActive = false;
     private UIManager _uiManager;
     private int _score = 0;
+    private AudioSource _audioSource;
 
     void Start()
     {
         SetInitialPositionAndSpeed();
         _uiManager = FindObjectOfType<UIManager>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void SetInitialPositionAndSpeed()
@@ -88,7 +92,7 @@ public class Player : MonoBehaviour
         _canFire = Time.time + _fireRate;
         Vector3 spawnPostion = transform.position + _projectileOffset;
 
-        if(_isTripleLaserActive)
+        if (_isTripleLaserActive)
         {
             Instantiate(_tripleLaserPrefab, spawnPostion, Quaternion.identity);
         }
@@ -96,6 +100,14 @@ public class Player : MonoBehaviour
         {
             Instantiate(_laserPrefab, spawnPostion, Quaternion.identity);
         }
+
+        PlayShootingSound();
+    }
+
+    private void PlayShootingSound()
+    {
+        _audioSource.clip = _shootingSound;
+        _audioSource.Play();
     }
 
     public void Damage()
