@@ -11,6 +11,12 @@ public class Enemy : MonoBehaviour
     private int _scoreValue = 10;
     [SerializeField]
     private AudioClip _explosionSound;
+    [SerializeField]
+    private GameObject _laserPrefab;
+    [SerializeField]
+    private float _shootingFrequence = 4f;
+    [SerializeField]
+    private AudioClip _shootSound;
 
     private Player _player;
     private Animator _animator;
@@ -33,6 +39,8 @@ public class Enemy : MonoBehaviour
         {
             Debug.LogError("Enemy._animator is NULL");
         }
+
+        StartCoroutine(Shoot());
     }
 
     void Update()
@@ -79,12 +87,41 @@ public class Enemy : MonoBehaviour
 
     private void DeathSequence()
     {
-        _collider.enabled = false;
-        _audioSource.clip = _explosionSound;
-        _animator.SetTrigger("OnEnemyDeath");
-        _audioSource.Play();
-        _speed = 0f;
+        DisableColliderAndStop();
 
-        Destroy(gameObject,2.7f);
+        _animator.SetTrigger("OnEnemyDeath");
+
+        PlayDeathSound();
+        StopAllCoroutines();
+
+        Destroy(gameObject, 2.7f);
+    }
+
+    private void DisableColliderAndStop()
+    {
+        _collider.enabled = false;
+        _speed = 0f;
+    }
+
+    private void PlayDeathSound()
+    {
+        _audioSource.clip = _explosionSound;
+        _audioSource.Play();
+    }
+
+    private IEnumerator Shoot()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(_shootingFrequence);
+            Instantiate(_laserPrefab, transform.position, Quaternion.identity);
+            PlayShootingSound();
+        }
+    }
+
+    private void PlayShootingSound()
+    {
+        _audioSource.clip = _shootSound;
+        _audioSource.Play();
     }
 }

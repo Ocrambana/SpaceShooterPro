@@ -263,3 +263,7 @@ MonoBehaviour:
   _speed: 4
   _scoreValue: 10
   _explosionSound: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
+  _laserPrefab: {fileID: 1374172703713198504, guid: eba24150be54d844b8d925faaec6a72f,
+    type: 3}
+  _shootingFrequence: 4
+  _shootSound: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
