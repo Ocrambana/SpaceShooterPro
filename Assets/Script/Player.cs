@@ -35,6 +35,8 @@ public class Player : MonoBehaviour
     private float _speedMultiplier = 2f;
     [SerializeField]
     private SpriteRenderer _shieldRenderer;
+    [SerializeField]
+    private AudioClip _pickupSound;
 
     private float _actualSpeed;
     private float _canFire = -1f; 
@@ -172,6 +174,7 @@ public class Player : MonoBehaviour
     {
         _isTripleLaserActive = true;
 
+        PlayPickupSound();
         StartCoroutine(TripleShotDuration());
     }
 
@@ -186,6 +189,7 @@ public class Player : MonoBehaviour
     {
         _actualSpeed = _speed * _speedMultiplier;
 
+        PlayPickupSound();
         StartCoroutine(SpeedPowerupDuration());
     }
 
@@ -200,6 +204,12 @@ public class Player : MonoBehaviour
     {
         _isShieldActive = true;
         _shieldRenderer.enabled = true;
+        PlayPickupSound();
+    }
+
+    private void PlayPickupSound()
+    {
+        AudioSource.PlayClipAtPoint(_pickupSound,transform.position);
     }
 
     public void AddToScore(int val)

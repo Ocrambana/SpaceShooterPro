@@ -17,13 +17,14 @@ public class PowerUp : MonoBehaviour
     private PowerupType _powerupType;
     [SerializeField]
     private float _lifeTime = 10f;
+    [SerializeField]
+    private AudioClip _pickupSound;
 
     private Vector3 movementDirection;
 
     private void Start()
     {
         CalculateMovementDirection();
-
         Destroy(gameObject, _lifeTime);
     }
 
@@ -66,6 +67,7 @@ public class PowerUp : MonoBehaviour
             collision.TryGetComponent<Player>(out Player p);
 
             ApplyPowerup(p);
+            AudioSource.PlayClipAtPoint(_pickupSound,transform.position);
 
             Destroy(gameObject);
         }

@@ -1269,6 +1269,7 @@ MonoBehaviour:
   _lives: 3
   _rightDamage: {fileID: 1267321290}
   _leftDamage: {fileID: 504910808}
+  _deathSound: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
   _laserPrefab: {fileID: 1722929745147981436, guid: f43d37bd7063082498155dc770f80c0c,
     type: 3}
   _projectileOffset: {x: 0, y: 0.8, z: 0}
@@ -1279,6 +1280,7 @@ MonoBehaviour:
     type: 3}
   _speedMultiplier: 2
   _shieldRenderer: {fileID: 1922517427}
+  _pickupSound: {fileID: 8300000, guid: 5ee343246919d2b4bba63ae629e95494, type: 3}
 --- !u!212 &1595826001
 SpriteRenderer:
   m_ObjectHideFlags: 0
