@@ -29,12 +29,15 @@ public class SpawnManager : MonoBehaviour
     private IEnumerator SpawnEnemy()
     {
         yield return new WaitForSeconds(3f);
+
         while(!_stopSpawning)
         {
             Vector3 spawnPosition = new Vector3(Random.Range(-9, 9), 7f, 0f);
             Instantiate(_enemyPrefab, spawnPosition, Quaternion.identity,_enemyContainer);
 
-            yield return new WaitForSeconds(_timeBetweenEnemy);
+            float randomSpawn = _timeBetweenEnemy + Random.Range(0f, 1f);
+
+            yield return new WaitForSeconds(randomSpawn);
         }
     }
 

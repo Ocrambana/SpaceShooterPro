@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour
     private Animator _animator;
     private Collider2D _collider;
     private AudioSource _audioSource;
+    private float _canFire = -1f;
 
     private void Start()
     {
@@ -39,8 +40,6 @@ public class Enemy : MonoBehaviour
         {
             Debug.LogError("Enemy._animator is NULL");
         }
-
-        StartCoroutine(Shoot());
     }
 
     void Update()
@@ -50,6 +49,13 @@ public class Enemy : MonoBehaviour
         if (transform.position.y < -5f)
         {
             RandomiseSpawnPosition();
+        }
+
+        if(Time.time > _canFire)
+        {
+            _canFire = Time.time + _shootingFrequence;
+            Instantiate(_laserPrefab, transform.position, Quaternion.identity);
+            PlayShootingSound();
         }
     }
 
@@ -92,7 +98,6 @@ public class Enemy : MonoBehaviour
         _animator.SetTrigger("OnEnemyDeath");
 
         PlayDeathSound();
-        StopAllCoroutines();
 
         Destroy(gameObject, 2.7f);
     }
@@ -101,22 +106,13 @@ public class Enemy : MonoBehaviour
     {
         _collider.enabled = false;
         _speed = 0f;
+        _canFire = float.MaxValue;
     }
 
     private void PlayDeathSound()
     {
         _audioSource.clip = _explosionSound;
         _audioSource.Play();
-    }
-
-    private IEnumerator Shoot()
-    {
-        while(true)
-        {
-            yield return new WaitForSeconds(_shootingFrequence);
-            Instantiate(_laserPrefab, transform.position, Quaternion.identity);
-            PlayShootingSound();
-        }
     }
 
     private void PlayShootingSound()
