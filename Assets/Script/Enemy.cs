@@ -30,6 +30,7 @@ public class Enemy : MonoBehaviour
         _collider = GetComponent<Collider2D>();
         _player = FindObjectOfType<Player>();
         _audioSource = GetComponent<AudioSource>();
+        _canFire = Time.time + Random.Range(0, _shootingFrequence);
 
         if(_player == null)
         {
